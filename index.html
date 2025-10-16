@@ -1,29 +1,28 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
+        <title>Ulysses</title>
         <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            background-color: transparent;
-            overflow: hidden;
-        }
-        object {
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            border: none;
-            outline: none;
-            display: block;
-            margin: 0;
-            padding: 0;
-        }
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                background: black;
+                color: white;
+                font-family: monospace;
+                white-space: pre-wrap;
+            }
         </style>
     </head>
     <body>
-        <object data="ulysses.txt">
-        </object>
+        <pre id="viewer"></pre>
+        <script>
+            fetch('ulysses.txt')
+                .then(response => response.text())
+                .then(text => {
+                    document.getElementById('viewer').textContent = text;
+                });
+        </script>
     </body>
 </html>
