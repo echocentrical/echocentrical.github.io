@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>echocentrical | homepage</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <h1 class="fadeIn">echocentrical</h1>
+        <div class="container">
+            <div id="currentA" class="fadeIn">homepage</div>
+            <div id="boxB" class="fadeIn"><a href="portfolio.html">portfolio</a></div>
+            <div id="boxC" class="fadeIn"><a href="trivia.html">trivia</a></div>
+        </div>
+        <div class="grid">
+            <div id="boxD" class="fadeIn sticky">
+                <h2>some (probably) useful study links</h2>
+                <ul>
+                    <li><a href="https://www.khanacademy.org/" target="_blank">KhanAcademy</a></li>
+                    <li><a href="https://www.w3schools.com/" target="_blank">W3Schools</a></li>
+                    <li><a href="https://www.hackerrank.com/" target="_blank">HackerRank</a></li>
+                </ul>
+            </div>
+            <div id="boxD">
+                <div id="sectionA" class="fadeIn">
+                    <h2>who am i?</h2>
+                    <p>i am echo, a first-year student from indonesia studying in an university somewhere in japan.
+                        (if you happen to know me irl, please don't make it public ty)
+                    </p>
+                </div>
+                <div id="sectionB" class="fadeIn">
+                    <h2>tech interests</h2>
+                    <ul>
+                        <li>Python</li>
+                        <li>JavaScript</li>
+                        <li>etc.</li>
+                    </ul>
+                </div>
+                <div id="sectionC" class="fadeIn">
+                    <h2>other stuff</h2>
+                    <p>i love playing games (particularly rhythm games), eating food, and listening to music.<br><br>
+                        what i've been listening to: (may change over time)
+                    </p>
+                    <ul>
+                        <li><a href="https://open.spotify.com/album/7jBgRCjyX34raftxwbaxyW" target="_blank">Akina Nakamori - Prologue</a></li>
+                        <li><a href="https://open.spotify.com/album/5omZBDcrKx6gipquZKdkwa" target="_blank">Casiopea - Mint Jams</a></li>
+                        <li><a href="https://open.spotify.com/album/5uEl2mEcKfGMij4tpMT164" target="_blank">Kaoru Akimoto - Cologne</a></li>
+                        <li><a href="https://open.spotify.com/album/2I4SaLqhVu7luvEmyDANCN" target="_blank">Meiko Nakahara - Friday Magic</a></li>
+                        <li><a href="https://open.spotify.com/album/2ELFnnbz046Rkzf2HnajTX" target="_blank">Meiko Nakahara - Lotos</a></li>
+                        <li><a href="https://open.spotify.com/track/1j8z4TTjJ1YOdoFEDwJTQa" target="_blank">Paramore - Ain't It Fun</a></li>
+                        <li><a href="https://open.spotify.com/artist/67oQeSa0YBmKuFqBkT2sfl" target="_blank">Reiko Takahashi</a></li>
+                    </ul>
+                    <p>also fun fact, i appeared in an official game tournament. good luck finding me in a livestream archive.</p>
+                    <img src="proof.jpg">
+                </div>
+            </div>
+            <div id="sectionD" class="fadeIn sticky">
+                <h2>contact me</h2>
+                <p id="p">i would be very happy if you could write your thoughts on my album recommendations</p>
+                <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" target="hidden_iframe">
+                    <input type="hidden" name="access_key" value="e5a28351-cd89-4b2d-93b4-f873bdf4e274"> 
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <textarea name="message" placeholder="Message"></textarea>
+                    <div class="button-group">
+                        <button type="reset" class="button reset">Reset</button>
+                        <button type="submit" class="button send">Send</button>
+                    </div>
+                </form>
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+                <div id="successMessage">
+                    <p>message sent! i'll get back to you (if i can)</p>
+                </div>
+                <script>
+                    const contactForm = document.querySelector("#contactForm");
+                    const successMessage = document.querySelector("#successMessage")
+
+                    contactForm.addEventListener("submit", function() {
+                        event.preventDefault();
+
+                        const formData = new FormData(contactForm);
+
+                        fetch(contactForm.action, {
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(response =>  {
+                            if (!response.ok) {
+                                throw new Error('server returned status: ${response.status}')
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            successMessage.style.display = "block";
+                            contactForm.reset();
+                        })
+                        .catch(error => {
+                            console.error("form submission failed:", error)
+                            alert("oops! something went wrong. please try again")
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+        <footer>© 2026 echocentrical, powered by github. all rights reserved.</footer>
+    </body>
+</html>

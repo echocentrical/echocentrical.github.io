@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>echocentrical | portfolio</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <h1 class="fadeIn">echocentrical</h1>
+        <div class="container">
+            <div id="boxA" class="fadeIn"><a href="homepage.html">homepage</a></div>
+            <div id="currentB" class="fadeIn">portfolio</div>
+            <div id="boxC" class="fadeIn"><a href="trivia.html">trivia</a></div>
+        </div>
+        <div class="grid">
+            <div id="boxD" class="fadeIn sticky">
+                <h2>some (probably) useful study links</h2>
+                <ul>
+                    <li><a href="https://www.khanacademy.org/" target="_blank">KhanAcademy</a></li>
+                    <li><a href="https://www.w3schools.com/" target="_blank">W3Schools</a></li>
+                    <li><a href="https://www.hackerrank.com/" target="_blank">HackerRank</a></li>
+                </ul>
+            </div>
+            <div id="sectionA" class="fadeIn">
+                <h2>portfolio</h2>
+                <div class="portfolio">
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 8%">no</th>
+                                    <th style="width: 25%">project</th>
+                                    <th style="width: 45%">description</th>
+                                    <th style="width: 22%">period</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="number">01</td>
+                                    <td class="project-title">library sql database</td>
+                                    <td>a set of customer, branch, and book databases.</td>
+                                    <td class="number">feb 2024</td>
+                                </tr>
+                                <tr>
+                                    <td class="number">02</td>
+                                    <td class="project-title">school sql database</td>
+                                    <td>a set of essential academic databases, such as grades, student list, courses, etc.</td>
+                                    <td class="number">mar 2024</td>
+                                </tr>
+                                <tr>
+                                    <td class="number">03</td>
+                                    <td class="project-title">bongo cat snap filter</td>
+                                    <td>interactive filter using hand and mouth movements trackers.</td>
+                                    <td class="number">may 2026</td>
+                                </tr>
+                                <tr>
+                                    <td class="number">04</td>
+                                    <td class="project-title">pacman playing bot</td>
+                                    <td>an algorithm that tries to identify the best possible movements based on circumstances.</td>
+                                    <td class="number">may 2026</td>
+                                </tr>
+                                <tr>
+                                    <td class="number">05</td>
+                                    <td class="project-title">tetris game + playing bot</td>
+                                    <td>a replica of classic nes tetris and (probably) the fastest playing bot.</td>
+                                    <td class="number">may 2026</td>
+                                </tr>
+                                <tr>
+                                    <td class="number">06</td>
+                                    <td class="project-title">personal website</td>
+                                    <td>a website for me, by me.</td>
+                                    <td class="number">jul 2026</td>
+                                </tr>
+                                <tr>
+                                    <td class="number">07</td>
+                                    <td class="project-title">yule's q calculator</td>
+                                    <td>real-time 2x2 association calculator.</td>
+                                    <td class="number">jul 2026</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="sectionB" class="fadeIn sticky">
+                <h2>contact me</h2>
+                <p id="p">i would be very happy if you could write your thoughts on my album recommendations</p>
+                <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" target="hidden_iframe">
+                    <input type="hidden" name="access_key" value="e5a28351-cd89-4b2d-93b4-f873bdf4e274"> 
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <textarea name="message" placeholder="Message"></textarea>
+                    <div class="button-group">
+                        <button type="reset" class="button reset">Reset</button>
+                        <button type="submit" class="button send">Send</button>
+                    </div>
+                </form>
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+                <div id="successMessage">
+                    <p>message sent! i'll get back to you (if i can)</p>
+                </div>
+                <script>
+                    const contactForm = document.querySelector("#contactForm");
+                    const successMessage = document.querySelector("#successMessage")
+
+                    contactForm.addEventListener("submit", function() {
+                        event.preventDefault();
+
+                        const formData = new FormData(contactForm);
+
+                        fetch(contactForm.action, {
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(response =>  {
+                            if (!response.ok) {
+                                throw new Error('server returned status: ${response.status}')
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            successMessage.style.display = "block";
+                            contactForm.reset();
+                        })
+                        .catch(error => {
+                            console.error("form submission failed:", error)
+                            alert("oops! something went wrong. please try again")
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+        <footer>© 2026 echocentrical, powered by github. all rights reserved.</footer>
+    </body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>echocentrical | trivia</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <h1 class="fadeIn">echocentrical</h1>
+        <div class="container">
+            <div id="boxA" class="fadeIn"><a href="homepage.html">homepage</a></div>
+            <div id="boxB" class="fadeIn"><a href="portfolio.html">portfolio</a></div>
+            <div id="currentC" class="fadeIn">trivia</div>
+        </div>
+        <div class="grid">
+            <div id="boxD" class="fadeIn sticky">
+                <h2>some (probably) useful study links</h2>
+                <ul>
+                    <li><a href="https://www.khanacademy.org/" target="_blank">KhanAcademy</a></li>
+                    <li><a href="https://www.w3schools.com/" target="_blank">W3Schools</a></li>
+                    <li><a href="https://www.hackerrank.com/" target="_blank">HackerRank</a></li>
+                </ul>
+            </div>
+            <div id="sectionA" class="calculator fadeIn">
+                <h2>yule's q calculator</h2>
+                <p id="p">what can you use this for? idk tbh</p>
+                <div class="grid2">
+                    <div class="cell">
+                        <label for="cell-a">Cell A</label>
+                        <input type="number" id="cell-a" value="50" min="0">
+                    </div>
+                    <div class="cell">
+                        <label for="cell-b">Cell B</label>
+                        <input type="number" id="cell-b" value="10" min="0">
+                    </div>
+                    <div class="cell">
+                        <label for="cell-c">Cell C</label>
+                        <input type="number" id="cell-c" value="15" min="0">
+                    </div>
+                    <div class="cell">
+                        <label for="cell-d">Cell D</label>
+                        <input type="number" id="cell-d" value="45" min="0">
+                    </div>
+                </div>
+                <div class="result">
+                    <div class="q-value">
+                        <span class="q-label">Yule's Q:</span>
+                        <span id="q-result">0.81</span>
+                    </div>
+                    <p id="interpretation">Strong Positive Association</p>
+                </div>
+                <script>
+                    const inputA = document.querySelector("#cell-a")
+                    const inputB = document.querySelector("#cell-b")
+                    const inputC = document.querySelector("#cell-c")
+                    const inputD = document.querySelector("#cell-d")
+                    const qResult = document.querySelector("#q-result")
+                    const qInterpretation = document.querySelector("#interpretation")
+
+                    function calculate() {
+                        const a = parseFloat(inputA.value) || 0;
+                        const b = parseFloat(inputB.value) || 0;
+                        const c = parseFloat(inputC.value) || 0;
+                        const d = parseFloat(inputD.value) || 0;
+                        const numerator = (a * d) - (b * c);
+                        const denominator = (a * d) + (b * c);
+
+                        if (denominator === 0) {
+                            qResult.textContent = "0.00";
+                            updateUi(0);
+                            return;
+                        }
+
+                        const q = numerator / denominator;
+                        qResult.textContent = q.toFixed(2);
+                        updateUi(q);
+                    }
+
+                    function updateUi(q) {
+                        let text = "";
+                        let color = "";
+
+                        if (q >= 0.7) {
+                            text = "Strong Positive Association";
+                        } else if (q >= 0.5) {
+                            text = "Substantial Positive Association";
+                        } else if (q >= 0.3) {
+                            text = "Moderate Positive Association";
+                        } else if (q < 0.3) {
+                            text = "Weak Positive Association";
+                        } else if (q = 0) {
+                            text = "No Association";
+                        } else if (q > -0.3) {
+                            text = "Weak Negative Association";
+                        } else if (q <= -0.3) {
+                            text = "Moderate Negative Association";
+                        } else if (q <= -0.5) {
+                            text = "Substantial Negative Association";
+                        } else {
+                            text = "Strong Negative Association";
+                        }
+
+                        qInterpretation.textContent = text;
+                        qInterpretation.style.color = color;
+                    }
+
+                    [inputA, inputB, inputC, inputD].forEach(input => {
+                        input.addEventListener("input", calculate);
+                    });
+
+                    calculate();
+                </script>
+            </div>
+            <div id="sectionB" class="fadeIn sticky">
+                <h2>contact me</h2>
+                <p id="p">i would be very happy if you could write your thoughts on my album recommendations</p>
+                <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" target="hidden_iframe">
+                    <input type="hidden" name="access_key" value="e5a28351-cd89-4b2d-93b4-f873bdf4e274"> 
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <textarea name="message" placeholder="Message"></textarea>
+                    <div class="button-group">
+                        <button type="reset" class="button reset">Reset</button>
+                        <button type="submit" class="button send">Send</button>
+                    </div>
+                </form>
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+                <div id="successMessage">
+                    <p>message sent! i'll get back to you (if i can)</p>
+                </div>
+                <script>
+                    const contactForm = document.querySelector("#contactForm");
+                    const successMessage = document.querySelector("#successMessage")
+
+                    contactForm.addEventListener("submit", function() {
+                        event.preventDefault();
+
+                        const formData = new FormData(contactForm);
+
+                        fetch(contactForm.action, {
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(response =>  {
+                            if (!response.ok) {
+                                throw new Error('server returned status: ${response.status}')
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            successMessage.style.display = "block";
+                            contactForm.reset();
+                        })
+                        .catch(error => {
+                            console.error("form submission failed:", error)
+                            alert("oops! something went wrong. please try again")
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+        <footer>© 2026 echocentrical, powered by github. all rights reserved.</footer>
+    </body>
+</html>
